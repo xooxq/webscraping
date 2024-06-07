@@ -11,6 +11,7 @@ else:
     #item = input("Item: ").strip().capitalize()
     html = BeautifulSoup(get("https://www.kabum.com.br/produto/165133/placa-mae-asus-tuf-gaming-a520m-plus-ii-amd-am4-matx-ddr4").text, "html.parser")
     card=html.find("div", id="blocoValores")
+    nome = html.find('h1', {'class':['sc-58b2114e-6', 'brTtKt']}).getText()
     vendedor = html.find('div', {'class': ['sc-477542eb-1', 'YqEBe']}).get_text().split('|')[0]
     em_estoque=html.find('div', {'class': ['sc-477542eb-1', 'YqEBe']}).get_text().split('|')[1].strip()
     preco_pix = html.find("h4", {'class':['sc-5492faee-2','ipHrwP','finalPrice']}).get_text()
@@ -19,6 +20,6 @@ else:
     msg_parcelamento = html.find('span', class_="cardParcels").get_text() + "\n" + card.findAll('span')[-1].getText()
     img_produto = html.find('meta', property="og:image")["content"]
 
-    print(f"{vendedor}\nEstado: {em_estoque}\nPreço: {preco_pix}\n{msg_pix}\n\n{valor_real}\n{msg_parcelamento}")
+    print(f"{nome}\n\n{vendedor}\nEstado: {em_estoque}\nPreço: {preco_pix}\n{msg_pix}\n\n{valor_real}\n{msg_parcelamento}")
     
     #pegar a descrição do produto
