@@ -20,3 +20,5 @@ else:
     img_produto = html.find('meta', property="og:image")["content"]
 
     print(f"{vendedor}\nEstado: {em_estoque}\nPreço: {preco_pix}\n{msg_pix}\n\n{valor_real}\n{msg_parcelamento}")
+    
+    #pegar a descrição do produto
