@@ -9,7 +9,7 @@ if get("https://www.kabum.com.br/produto/161613/processador-amd-ryzen-5-3600x-3-
 
 else:
     #item = input("Item: ").strip().capitalize()
-    html = BeautifulSoup(get("https://www.kabum.com.br/produto/161613/processador-amd-ryzen-5-3600x-3-8ghz-4-4ghz-max-turbo-cache-32mb-am4-ddr4-100-100000022box").text, "html.parser")
+    html = BeautifulSoup(get("https://www.kabum.com.br/produto/165133/placa-mae-asus-tuf-gaming-a520m-plus-ii-amd-am4-matx-ddr4").text, "html.parser")
     card=html.find("div", id="blocoValores")
     vendedor = html.find('div', {'class': ['sc-477542eb-1', 'YqEBe']}).get_text().split('|')[0]
     em_estoque=html.find('div', {'class': ['sc-477542eb-1', 'YqEBe']}).get_text().split('|')[1].strip()
@@ -17,8 +17,6 @@ else:
     msg_pix = html.find('span', {'class': ['sc-5492faee-3', 'igKOYC']}).get_text()
     valor_real = html.find('b', {'class': 'regularPrice'}).get_text()
     msg_parcelamento = html.find('span', class_="cardParcels").get_text() + "\n" + card.findAll('span')[-1].getText()
+    img_produto = html.find('meta', property="og:image")["content"]
 
-    print(msg_parcelamento)
-
-    #falta setar a img do produto
-    
+    print(f"{vendedor}\nEstado: {em_estoque}\nPreço: {preco_pix}\n{msg_pix}\n\n{valor_real}\n{msg_parcelamento}")
