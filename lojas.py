@@ -2,14 +2,15 @@ from requests import get
 from bs4 import BeautifulSoup
 
 #sites={'kabum':'https://www.kabum.com.br', 'pichau':'https://www.pichau.com.br'}
+r=get("https://www.kabum.com.br/produto/161613/processador-amd-ryzen-5-3600x-3-8ghz-4-4ghz-max-turbo-cache-32mb-am4-ddr4-100-100000022box")
 
-if get("https://www.kabum.com.br/produto/161613/processador-amd-ryzen-5-3600x-3-8ghz-4-4ghz-max-turbo-cache-32mb-am4-ddr4-100-100000022box").status_code != 200:
+if r.status_code != 200:
 
     print("site indisponivel")
 
 else:
     #item = input("Item: ").strip().capitalize()
-    html = BeautifulSoup(get("https://www.kabum.com.br/produto/161613/processador-amd-ryzen-5-3600x-3-8ghz-4-4ghz-max-turbo-cache-32mb-am4-ddr4-100-100000022box").text, "html.parser")
+    html = BeautifulSoup(r.text, "html.parser")
     card_produto = html.find("div", id="blocoValores")
 
     nome_produto = html.find('h1', {'class':['sc-58b2114e-6', 'brTtKt']}).getText()
