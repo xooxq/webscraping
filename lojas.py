@@ -49,7 +49,9 @@ def raspar_site(link):
 
     msg_parcelamento = card_produto.find('span', class_="cardParcels").get_text() + "\n" + card_produto.findAll('span')[-1].getText()
     descricao_produto = html.find("div", id="description").getText()
-    img_produto = html.find('meta', property="og:image")["content"]
+    
+    #caso vocês queira fazer algo com a img do(s) produtos, está aí 
+    #img_produto = html.find('meta', property="og:image")["content"]
 
     print(f"{nome_produto}\n\n{vendedor}\nEstado: {em_estoque}\nPreço: {preco_pix}\n{msg_pix}\n\n{valor_real}\n{msg_parcelamento}\n\nDescrição do produto:\n\n{descricao_produto}")
 
@@ -63,13 +65,13 @@ if not exists(userdir):
 
 options = webdriver.ChromeOptions()
 options.binary_location = r"caminho para o seu opera.exe"
+
 options.add_experimental_option('w3c', True)
-#options.add_argument("--headless")
+options.add_argument("--headless")
 options.add_argument(f'--user-data-dir={userdir}')
 options.add_argument("--incognito")
 options.arguments.extend(["--no-default-browser-check", "--no-first-run"])
 options.arguments.extend(["--no-sandbox", "--test-type"])
-
 options.add_argument("--start-maximized")
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
@@ -80,6 +82,10 @@ driver.get("https://kabum.com.br")
 sleep(4)
 
 input_site = driver.find_element(By.CSS_SELECTOR, "#input-busca")
+
+#fazendo uma limpeza para ver claramente a pergunta do input
+system('cls')# -> 'cls' para Windows e 'clear' para Linux
+
 item = input("Qual produto deseja pesquisar?: ").strip()
 input_site.send_keys(item)
 btn=driver.find_element(By.CSS_SELECTOR, 'button[type="submit"][aria-label="Buscar"]')
@@ -92,7 +98,7 @@ if response.status_code != 200:
     print(response.status_code)
 
 else:
-
+    
     html = BeautifulSoup(response.text, "html.parser")
     cards = html.findAll('article', {'class':['sc-9d1f1537-7','hxuzLm', 'productCard']})
 
