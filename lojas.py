@@ -115,6 +115,6 @@ else:
     
     #quando eu adiciono o valor na lista "lista_reais" e na "lista_pix", adiciono também o nome do produto ao "nome_prodt",
     #o que faz o valor do produto ter o mesmo índice que o nome do próprio, mesmo estando em listas separadas
-    #então com o índice do menor valor da lista "lista_reais" e "lista_pix", é o mesmo índice do nome do produto.
+    #então como índice do menor valor da lista "lista_reais" e "lista_pix", é o mesmo índice do nome do produto.
 
     print(f'Nome do produto: {nome_prdut[lista_reais.index(min(lista_reais))]}\nPreço real mais barato: {min(lista_reais)}\nLink do Produto: {lista_links_prodt[lista_reais.index(min(lista_reais))]}\n\nNome do Produto: {nome_prdut[lista_pix.index(min(lista_pix))]}\nPreço pix mais barato: {min(lista_pix)}\nLink do Protudo: {lista_links_prodt[lista_pix.index(min(lista_pix))]}') 
