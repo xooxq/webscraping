@@ -1,6 +1,6 @@
 # webscraping
 
-busca de um produto em um site (kabum), retornando o valor (abrangendo tudo sobre preço do produto) e nome produto, mostrando apenas os 3 produtos do mesmo, ao usuário.
+busca de um produto em um site (kabum), retornando o valor (abrangendo tudo sobre preço do produto) e nome do produto, mostrando apenas os 3 produtos do mesmo, ao usuário.
 
 #           Como Usar
 
