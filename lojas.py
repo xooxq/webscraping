@@ -54,7 +54,7 @@ def raspar_site(link):
     print(f"{nome_produto}\n\n{vendedor}\nEstado: {em_estoque}\nPreço: {preco_pix}\n{msg_pix}\n\n{valor_real}\n{msg_parcelamento}\n\nDescrição do produto:\n\n{descricao_produto}")
 
 
-webdriver_service = service.Service(r"C:\Users\ygor\Documents\projetos\venv\operadriver_win64_123\operadriver.exe")
+webdriver_service = service.Service("caminho para o seu operadriver")
 webdriver_service.start()
 
 userdir = 'c:\\operauser'
@@ -62,7 +62,7 @@ if not exists(userdir):
     makedirs(userdir)
 
 options = webdriver.ChromeOptions()
-options.binary_location = r"C:\Users\ygor\AppData\Local\Programs\Opera GX\opera.exe"
+options.binary_location = r"caminho para o seu opera.exe"
 options.add_experimental_option('w3c', True)
 #options.add_argument("--headless")
 options.add_argument(f'--user-data-dir={userdir}')
