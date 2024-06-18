@@ -12,4 +12,4 @@ Feito a instalação, você **precisa** ter o operagx, opera ou o Google Chrome 
 
 operadriver: https://github.com/operasoftware/operachromiumdriver/releases
 
-Tendo todas as coisas citas tudo abaixadas no seu pc, você vai colocar o caminho do seu driver no "webdriver_service = service.Service(r"caminho para o driver do seu navegador")"(linha 59), e o caminho do .exe do seu navegador "options.binary_location = r"caminho do .exe do seu navegador"" (se for usar o operagx, passe o caminho do opera.exe, não do laucher.exe).
+Tendo todas as coisas citas tudo abaixadas no seu pc, você vai colocar o caminho do seu driver no "webdriver_service = service.Service(r"caminho para o driver do seu navegador")"(linha 59), e o caminho do .exe do seu navegador (linha 67)"options.binary_location = r"caminho do .exe do seu navegador"" (se for usar o operagx, passe o caminho do opera.exe, não do laucher.exe).
