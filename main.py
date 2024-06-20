@@ -56,7 +56,7 @@ def raspar_site(link):
     print(f"{nome_produto}\n\n{vendedor}\nEstado: {em_estoque}\nPreço: {preco_pix}\n{msg_pix}\n\n{valor_real}\n{msg_parcelamento}\n\nDescrição do produto:\n\n{descricao_produto}")
 
 
-webdriver_service = service.Service("caminho para o seu operadriver")
+webdriver_service = service.Service(r"caminho para o seu operadriver")
 webdriver_service.start()
 
 userdir = 'c:\\operauser'
@@ -67,12 +67,23 @@ options = webdriver.ChromeOptions()
 options.binary_location = r"caminho para o seu opera.exe"
 
 options.add_experimental_option('w3c', True)
+
+#fazendo o navegador rodar em segundo plano.
 options.add_argument("--headless")
+#cria um diretório para o opera user. Caso não quiser, só apagar.
 options.add_argument(f'--user-data-dir={userdir}')
+
+#abre o navegador numa guia anônima.
 options.add_argument("--incognito")
+
+#retira a msg de pergunta se o navegador é o seu navegador padrão (--no-default-browser-check).
+#desabilita a execução da primeira execução do navegador. evitar que extensões ou páginas da web sejam
+#carregadas automaticamente na primeira vez que o navegador é aberto (--no-first-run)
 options.arguments.extend(["--no-default-browser-check", "--no-first-run"])
+
+#desativa um dos mecanismos de segurança para podermos desevolver.
 options.arguments.extend(["--no-sandbox", "--test-type"])
-options.add_argument("--start-maximized")
+#desativei o logging porque estava retornando uns aviso não tão importantes.
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
 driver = webdriver.Remote(webdriver_service.service_url, options=options)
@@ -92,7 +103,8 @@ btn=driver.find_element(By.CSS_SELECTOR, 'button[type="submit"][aria-label="Busc
 btn.click()
 sleep(1)
 
-response = get(driver.current_url) #pegando o https da página
+#pegando o https da página
+response = get(driver.current_url)
 
 if response.status_code != 200:
     print(response.status_code)
@@ -106,6 +118,7 @@ else:
     #fazendo uma limpeza gráfica no terminal para que o user veja apenas os produtos, e não o histórico do
     # terminal junto com os produtos. 
     system('cls') # -> 'cls' para Windows e 'clear' para Linux
+    
     for card in cards:
         for tag in card:
             if tag.get('href') != None and contador < 3:
