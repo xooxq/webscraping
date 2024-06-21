@@ -30,18 +30,24 @@ def raspar_site(link):
 
     msg_pix = card_produto.find('span', {'class': ['sc-5492faee-3', 'igKOYC']}).get_text()
 
-    valor_real = card_produto.find('b', {'class': 'regularPrice'}).get_text()
+    try:
+        #o valor_real é um valor de quando não é à vista. Caso existir, vai mostrar, caso não, recebe None
+        valor_real = card_produto.find('b', {'class': 'regularPrice'}).get_text()
+    except:
+        valor_real = None
 
     try:
 #estou separando o valor do R$, tirando um espaço e uma vírgula e ajuntando tudo com um . antes do centavos
-        lista_reais.append(float('.'.join(valor_real.split("R$")[1].split()[0].split(","))))
+        if valor_real != None:    
+            lista_reais.append(float('.'.join(valor_real.split("R$")[1].split()[0].split(","))))
         
         lista_pix.append(float('.'.join(preco_pix.split("R$")[1].split()[0].split(","))))
     
     except ValueError:
     #aqui, um erro caso o número for 1k ou maior que isso, aí estou fazendo a conversão do str para o flt
-        lista_reais.append(float('.'.join(valor_real.split("R$")[1].split()[0].split(",")).replace('.', '', 1)))
-        
+        if valor_real != None:
+            lista_reais.append(float('.'.join(valor_real.split("R$")[1].split()[0].split(",")).replace('.', '', 1)))
+
         lista_pix.append(float('.'.join(preco_pix.split("R$")[1].split()[0].split(",")).replace('.', '', 1)))
 
     nome_prdut.append(nome_produto)
@@ -49,12 +55,14 @@ def raspar_site(link):
 
     msg_parcelamento = card_produto.find('span', class_="cardParcels").get_text() + "\n" + card_produto.findAll('span')[-1].getText()
     descricao_produto = html.find("div", id="description").getText()
-    
+
     #caso vocês queira fazer algo com a img do(s) produtos, está aí 
     #img_produto = html.find('meta', property="og:image")["content"]
 
-    print(f"{nome_produto}\n\n{vendedor}\nEstado: {em_estoque}\nPreço: {preco_pix}\n{msg_pix}\n\n{valor_real}\n{msg_parcelamento}\n\nDescrição do produto:\n\n{descricao_produto}")
-
+    print(f"{nome_produto}\n\n{vendedor}\nEstado: {em_estoque}\nPreço: {preco_pix}\n{msg_pix}")
+    if valor_real != None:
+        print(f'\n\nValor parcelado: {valor_real}\n')
+    print(f"{msg_parcelamento}\n\nDescrição do produto:\n\n{descricao_produto}\n\n")
 
 webdriver_service = service.Service(r"caminho para o seu operadriver")
 webdriver_service.start()
@@ -125,6 +133,8 @@ else:
             #fazendo a verificação para ver se exite um link para o produto e fazendo a busca só pra 3 produtos
                 raspar_site("https://kabum.com.br"+tag.get('href'))
                 contador+=1
+            elif contador >3:
+                break
     
     #quando eu adiciono o valor na lista "lista_reais" e na "lista_pix", adiciono também o nome do produto ao "nome_prodt",
     #o que faz o valor do produto ter o mesmo índice que o nome do próprio, mesmo estando em listas separadas
