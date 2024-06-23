@@ -37,7 +37,7 @@ def raspar_site(link):
         valor_real = None
 
     try:
-#estou separando o valor do R$, tirando um espaço e uma vírgula e ajuntando tudo com um . antes do centavos
+        #estou separando o valor do R$, tirando um espaço e uma vírgula e ajuntando tudo com um . antes do centavos
         if valor_real != None:    
             lista_reais.append(float('.'.join(valor_real.split("R$")[1].split()[0].split(","))))
         
