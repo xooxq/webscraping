@@ -44,7 +44,8 @@ def raspar_site(link):
         lista_pix.append(float('.'.join(preco_pix.split("R$")[1].split()[0].split(","))))
     
     except ValueError:
-    #aqui, um erro caso o número for 1k ou maior que isso, aí estou fazendo a conversão do str para o flt
+    #aqui, um erro caso o número for mil ou maior que isso. mil tem dois pontos e o python apenas aceita 1 ponto
+    #para a conversão de str para float
         if valor_real != None:
             lista_reais.append(float('.'.join(valor_real.split("R$")[1].split()[0].split(",")).replace('.', '', 1)))
 
