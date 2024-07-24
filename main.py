@@ -96,23 +96,21 @@ options.arguments.extend(["--no-sandbox", "--test-type"])
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
 driver = webdriver.Remote(webdriver_service.service_url, options=options)
-
-sleep(4)
+
 driver.get("https://kabum.com.br")
 sleep(4)
 
 input_site = driver.find_element(By.CSS_SELECTOR, "#input-busca")
-
-#fazendo uma limpeza para ver claramente a pergunta do input
-system('cls')# -> 'cls' para Windows e 'clear' para Linux
+
+system('cls')
+# -> 'cls' para Windows e 'clear' para Linux
 
 item = input("Qual produto deseja pesquisar?: ").strip()
 input_site.send_keys(item)
 btn=driver.find_element(By.CSS_SELECTOR, 'button[type="submit"][aria-label="Buscar"]')
 btn.click()
 sleep(1)
-
-#pegando o https da página
+
 response = get(driver.current_url)
 
 if response.status_code != 200:
@@ -123,15 +121,12 @@ else:
     html = BeautifulSoup(response.text, "html.parser")
     cards = html.findAll('article', {'class':['sc-9d1f1537-7','hxuzLm', 'productCard']})
 
-    contador = 0
-    #fazendo uma limpeza gráfica no terminal para que o user veja apenas os produtos, e não o histórico do
-    # terminal junto com os produtos. 
-    system('cls') # -> 'cls' para Windows e 'clear' para Linux
-    
+    system('cls')
+
+    contador = 0  
     for card in cards:
         for tag in card:
             if tag.get('href') != None and contador < 3:
-            #fazendo a verificação para ver se exite um link para o produto e fazendo a busca só pra 3 produtos
                 raspar_site("https://kabum.com.br"+tag.get('href'))
                 contador+=1
             elif contador >3:
