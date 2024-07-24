@@ -31,8 +31,8 @@ def raspar_site(link):
     msg_pix = card_produto.find('span', {'class': ['sc-5492faee-3', 'igKOYC']}).get_text()
 
     try:
-        #o valor_real é um valor de quando não é à vista. Caso existir, vai mostrar, caso não, recebe None
         valor_real = card_produto.find('b', {'class': 'regularPrice'}).get_text()
+
     except:
         valor_real = None
 
